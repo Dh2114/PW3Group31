@@ -1,35 +1,53 @@
+const int leftCoilPin = A5;
+const int rightCoilPin = A2;
 
-const int leftMotorPWMPin = 4;  
-const int rightMotorPWMPin = 15; 
+const int leftMotorPWMPin = 5;
+const int rightMotorPWMPin = 3;
+
+int baseSpeed = 80;
+float Kp = 0.2;
+float Kd = 0.05;
+
+int sensorOffset = 0;
+int previousError = 0;
 
 
-int baseSpeed = 300; 
-float Kp = 0.8;      
-float Kd = 0.5;      
-
-
-int previousError = 0; 
+int deadband = 0; 
 
 void setup() {
   Serial.begin(9600);
   
-  
   pinMode(leftMotorPWMPin, OUTPUT);
   pinMode(rightMotorPWMPin, OUTPUT);
+  
+  delay(3000);
 }
 
-
 int calculateError() {
-  int currentError = 0;.
+  int leftSignal = analogRead(leftCoilPin);
+  int rightSignal = analogRead(rightCoilPin);
+  
+  int currentError = (leftSignal - rightSignal) + sensorOffset;
+  
+  Serial.print("Left: "); Serial.print(leftSignal); Serial.print(" | Right: "); Serial.print(rightSignal); Serial.print(" | Error: "); Serial.println(currentError);
+  
   return currentError;
 }
 
 void loop() {
   int error = calculateError();
   
-  int errorDerivative = error - previousError;
+
+  if (error > deadband) {
+    error = error - deadband;       
+  } else if (error < -deadband) {
+    error = error + deadband;       
+  } else {
+    error = 0;                     
+  }
   
-  int steeringAdjustment = (Kp * error) + (Kd * errorDerivative);
+  int errorDerivative = error + previousError;
+  int steeringAdjustment = (Kp * error) - (Kd * errorDerivative);
   
   previousError = error;
   
@@ -42,5 +60,5 @@ void loop() {
   analogWrite(leftMotorPWMPin, leftMotorSpeed);
   analogWrite(rightMotorPWMPin, rightMotorSpeed);
   
-
-  delay(10); 
+  delay(10);
+}
