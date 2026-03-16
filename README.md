@@ -5,7 +5,7 @@ const int leftMotorPWMPin = 5;
 const int rightMotorPWMPin = 3;
 
 int baseSpeed = 200;
-float Kp = 2;
+float Kp = 1.2;
 float Kd = 0.8;
 
 int sensorOffset = 220;
