@@ -5,14 +5,14 @@ const int leftMotorPWMPin = 5;
 const int rightMotorPWMPin = 3;
 
 int baseSpeed = 200;
-float Kp = 1.2;
-float Kd = 0.25;
+float Kp = 2;
+float Kd = 0.8;
 
-int sensorOffset = 0;
+int sensorOffset = 220;
 int previousError = 0;
 
 
-int deadband = 0; 
+int deadband = 100; 
 
 void setup() {
   Serial.begin(9600);
