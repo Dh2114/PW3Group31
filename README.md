@@ -4,9 +4,9 @@ const int rightCoilPin = A2;
 const int leftMotorPWMPin = 5;
 const int rightMotorPWMPin = 3;
 
-int baseSpeed = 80;
-float Kp = 0.2;
-float Kd = 0.05;
+int baseSpeed = 200;
+float Kp = 1.2;
+float Kd = 0.25;
 
 int sensorOffset = 0;
 int previousError = 0;
