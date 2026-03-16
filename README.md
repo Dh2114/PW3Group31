@@ -1,10 +1,10 @@
 
-const int leftMotorPWMPin = 9;  
-const int rightMotorPWMPin = 10; 
+const int leftMotorPWMPin = 4;  
+const int rightMotorPWMPin = 15; 
 
 
-int baseSpeed = 100; 
-float Kp = 1.5;      
+int baseSpeed = 300; 
+float Kp = 0.8;      
 float Kd = 0.5;      
 
 
